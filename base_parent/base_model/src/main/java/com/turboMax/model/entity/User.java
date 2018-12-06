@@ -27,7 +27,7 @@ public class User implements Serializable {
 	private String userName;
 	private String address;
 	private String job;
-	private long groupId;
+	private long deptId;
 	private Date birthDate;
 	private String city;
 	private String district;
@@ -41,14 +41,14 @@ public class User implements Serializable {
 	// 权限集合数据
 	private String roleArray;
 	// 所在分组的集合
-	private Dept orgGroup;
+	private Dept dept;
 
-	public Dept getOrgGroup() {
-		return orgGroup;
+	public Dept getDept() {
+		return dept;
 	}
 
-	public void setOrgGroup(Dept orgGroup) {
-		this.orgGroup = orgGroup;
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
 
 	public static long getSerialVersionUID() {
@@ -120,12 +120,12 @@ public class User implements Serializable {
 		this.job = job;
 	}
 
-	public long getGroupId() {
-		return groupId;
+	public long getDeptId() {
+		return deptId;
 	}
 
-	public void setGroupId(long groupId) {
-		this.groupId = groupId;
+	public void setDeptId(long deptId) {
+		this.deptId = deptId;
 	}
 
 	public Date getBirthDate() {
