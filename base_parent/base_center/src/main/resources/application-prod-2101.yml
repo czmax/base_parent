@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: registry-center
+  security:
+    user:  # eureka注册中心增加密码验证
+      name: admin
+      password: admin
+server:
+  port: 2101
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 90 #参数用于定义服务失效的时间，默认为90秒
+    lease-renewal-interval-in-seconds: 30 #参数用于定义服务续约任务的调用间隔时间，默认为30秒
+    prefer-ip-address: true #如我们不想使用主机名来定义注册中心的地址，也可以使用IP地址的形式， 但是需要在 配置文件中增加配置参数eureka.instance.prefer-ip-address= true, 该值默认为false。
+  server: #由于本地调试很容易触发注册中心的保护机制， 这会使得注册中心维护的服务实例不那么准确，默认为true。
+    enable-self-preservation: true #因此在本地调试的适合我们将参数设置为false，那么每次我们关闭客户端的时候我们的注册中心就直接移开相应的程序
+  client:
+    # service-url: http://admin:admin@127.0.0.1:2100/eureka/
+    registry-fetch-interval-seconds: 30 #缓存清单的更新时间,默认是30秒
+    service-url:
+      defaultZone: http://127.0.0.1:2100/eureka/
