@@ -4,10 +4,7 @@ import com.turboMax.model.entity.Identify;
 import com.turboMax.model.entity.User;
 import com.turboMax.model.util.redis.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +25,7 @@ public class AuthController {
     @Autowired
     private RedisCache redisCache;
 
-    @RequestMapping(value = "/identify", method = RequestMethod.POST)
+    @PostMapping("/identify")
     public Map<String, Object> identify(@RequestBody Identify identify) {
         Map<String, Object> result = new HashMap<>();
         result.put("result", false);

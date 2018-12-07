@@ -1,21 +1,31 @@
 package com.turboMax.model.common;
 
 /*
-* 类描述：查询基础类
-* @auther linzf
-* @create 2017/8/11 0011 
-*/
+ * 类描述：查询基础类
+ * @auther linzf
+ * @create 2017/8/11 0011
+ */
 public class QueryBase {
 
-    /** 要排序的字段名 */
+    /**
+     * 要排序的字段名
+     */
     protected String sort;
-    /** 排序方式: desc \ asc */
+    /**
+     * 排序方式: desc \ asc
+     */
     protected String order = "";
-    /** 获取一页行数 */
+    /**
+     * 获取一页行数
+     */
     protected int limit;
-    /** 获取的页码 */
+    /**
+     * 获取的页码
+     */
     protected int page;
-    /** 起始记录 */
+    /**
+     * 起始记录
+     */
     protected int offset;
 
     public String getSort() {
@@ -23,20 +33,20 @@ public class QueryBase {
     }
 
     public void setSort(String sort) {
-        if(sort==null){
-            return ;
+        if (sort == null) {
+            return;
         }
         String orderSort = "";
-        for( int i = 0 ; i<sort.length(); i++ ){
+        for (int i = 0; i < sort.length(); i++) {
             char a = sort.charAt(i);
-            String b = ""+a;
-            if( a>64 && a<91 ){ //大写字母的ASCLL码取值范围
-                if(orderSort.equals("")){
+            String b = "" + a;
+            if (a > 64 && a < 91) { //大写字母的ASCLL码取值范围
+                if (orderSort.equals("")) {
                     orderSort = orderSort + b.toLowerCase();
-                }else{
+                } else {
                     orderSort = orderSort + "_" + b.toLowerCase();
                 }
-            }else{
+            } else {
                 orderSort = orderSort + b;
             }
         }
@@ -69,7 +79,7 @@ public class QueryBase {
     }
 
     public int getOffset() {
-        return (this.page-1)*limit;
+        return (this.page - 1) * limit;
     }
 
     public void setOffset(int offset) {

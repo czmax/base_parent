@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.produce.sys.dao.RoleDao">
+    <resultMap type="com.base.entity.Role" id="RoleMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <resultMap type="com.base.entity.Role" id="RoleMenuMap">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="roleName" column="role_name"/>
+        <collection property="menuList"  ofType="com.base.entity.Menu" javaType="java.util.ArrayList">
+            <id property="id" column="menu_id"/>
+            <result property="code" column="code"/>
+            <result property="icon" column="icon"/>
+            <result property="name" column="menu_name"/>
+            <result property="pId" column="p_id"/>
+            <result property="menuOrder" column="menu_order"/>
+            <result property="url" column="url"/>
+            <result property="state" column="state"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getRoleAssociate" parameterType="com.base.entity.Role" resultMap="RoleMenuMap">
+		SELECT ur.*,t.id as menu_id,t.code,t.icon,t.name as menu_name,t.p_id,t.menu_order,t.url,t.state FROM tb_sys_role ur inner join role_associate_menu rat on ur.id = rat.role_id inner join menu t on rat.menu_id = t.id
+		WHERE ur.id=#{id}
+	</select>
+
+    <!--根据主键获取对象-->
+    <select id="get" parameterType="com.base.entity.Role" resultMap="RoleMenuMap">
+		SELECT ur.* FROM tb_sys_role ur WHERE ur.id=#{id}
+	</select>
+
+    <!--保存-->
+    <insert id="save" parameterType="com.base.entity.Role" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO tb_sys_role(name,role_name)
+		VALUES(#{name},#{roleName})
+	</insert>
+
+    <!--修改-->
+    <update id="update" parameterType="com.base.entity.Role">
+		UPDATE tb_sys_role SET name=#{name},role_name=#{roleName}
+		WHERE id=#{id}
+	</update>
+
+    <!--删除-->
+    <delete id="delete" parameterType="com.base.entity.Role">
+		 DELETE FROM tb_sys_role WHERE id=#{id}
+	</delete>
+
+    <!--分页查询-->
+    <select id="findByPage" parameterType="com.base.entity.QueryRole" resultMap="RoleMap">
+        SELECT id,name,role_name FROM tb_sys_role
+        WHERE 1=1
+        <if test="name!=null and name!='' "  >
+            AND name like concat(#{name},'%')
+        </if>
+        <if test="roleName!=null and roleName!='' "  >
+            AND role_name like concat(#{roleName},'%')
+        </if>
+        <if test="sort!= null">
+            order by ${sort} ${order}
+        </if>
+        limit #{offset},#{limit}
+    </select>
+
+    <!--统计-->
+    <select id="count" parameterType="com.base.entity.QueryRole" resultType="int">
+        SELECT count(*) FROM tb_sys_role
+        WHERE 1=1
+        <if test="name!=null and name!='' "  >
+            AND name like concat(#{name},'%')
+        </if>
+        <if test="roleName!=null and roleName!='' "  >
+            AND role_name like concat(#{roleName},'%')
+        </if>
+    </select>
+
+    <!--查询-->
+    <select id="query" parameterType="com.base.entity.QueryRole" resultMap="RoleMap">
+        SELECT id,name,role_name FROM tb_sys_role
+        WHERE 1=1
+        <if test="name!=null and name!='' "  >
+            AND name like concat(#{name},'%')
+        </if>
+        <if test="roleName!=null and roleName!='' "  >
+            AND role_name like concat(#{roleName},'%')
+        </if>
+        <if test="sort!= null">
+            order by ${sort} ${order}
+        </if>
+    </select>
+</mapper>
