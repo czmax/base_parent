@@ -19,4 +19,12 @@ public interface SysUserService {
 
     //查询所有
     public List<SysUser> finALl() throws Exception;
+
+
+    //shiro认证相关
+    SysUser findSysUserByLogin(String username, String password);
+
+    SysUser findSysByUserName(String username);
+
+
 }

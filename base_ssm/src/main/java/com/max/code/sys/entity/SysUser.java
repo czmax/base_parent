@@ -1,5 +1,8 @@
 package com.max.code.sys.entity;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -11,9 +14,9 @@ public class SysUser implements Serializable {
     private Integer id;
 
     private String login;
-
+    @Length(min = 6,message = "密码不能少于6位")
     private String password;
-
+    @NotEmpty(message = "姓名不能为空")
     @Column(name = "user_name")
     private String userName;
 

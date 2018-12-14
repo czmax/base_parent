@@ -22,3 +22,17 @@ https://blog.csdn.net/qq_37939251/article/details/82916028#1.2%20Spring%20%E9%9B
 aop事务，需要添加包 aspectjweaver.version，否则报错
 
  Failed to introspect bean class [org.springframework.aop.aspectj.AspectJExpressionPointcut]
+ 
+ 
+ ## 3 shiro加上redis
+ 
+ 参考：
+ SSM框架+shiro+redis的基础框架，有助于新手学习
+ 
+ https://blog.csdn.net/ran_Max/article/details/80619762#commentBox
+ 
+ https://github.com/xhwanhaoran/ssm/tree/8baf68f79395bb5f1062b8b4538d6ac16936216f
+ 
+ Shiro Demo 准备工作
+ 
+ https://www.sojson.com/shiro

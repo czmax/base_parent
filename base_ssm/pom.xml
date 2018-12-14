@@ -8,8 +8,12 @@
 
     <properties>
 
+        <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!--jdk版本-->
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -17,7 +21,7 @@
         <junit.version>4.12</junit.version>
 
         <!--1.日志-->
-        <logback-classic.version>1.1.1</logback-classic.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
         <!--2.数据库-->
         <druid.version>1.1.6</druid.version>
         <mybatis.version>3.4.1</mybatis.version>
@@ -29,14 +33,29 @@
         <jstl.version>1.2</jstl.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <!--4.Spring-->
-        <spring.version>4.3.20.RELEASE</spring.version>
+        <spring.version>4.3.18.RELEASE</spring.version>
         <!--5.工具-->
         <fastjson.version>1.2.44</fastjson.version>
+        <jackson.version>2.9.6</jackson.version>
         <commons.logging.version>1.2.17</commons.logging.version>
         <aspectjweaver.version>1.8.13</aspectjweaver.version>
         <!-- lombok版本号 -->
         <lombok.version>1.16.20</lombok.version>
-        <commons-collections.version>3.2</commons-collections.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons-io.version>2.2</commons-io.version>
+        <commons-fileupload.version>1.3.3</commons-fileupload.version>
+        <shiro-core.version>1.4.0</shiro-core.version>
+        <swagger2.version>2.9.2</swagger2.version>
+        <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
+
+        <jedis.version>2.9.0</jedis.version>
+        <spring-data-redis.version>1.8.14.RELEASE</spring-data-redis.version>
+
+        <!--前端库-->
+        <adminlte.version>2.4.8</adminlte.version>
+        <bootstrap.version>3.3.7</bootstrap.version>
+        <bootstrap-table.version>1.12.1</bootstrap-table.version>
+        <jquery.version>3.3.1</jquery.version>
 
     </properties>
     <dependencies>
@@ -177,10 +196,26 @@
         </dependency>
         <!-- fastjson -->
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version} </version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -192,13 +227,85 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.2</version>
+            <version>${commons-io.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.3</version>
+            <version>${commons-fileupload.version}</version>
         </dependency>
+
+        <!-- shiro -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${shiro-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${shiro-core.version}</version>
+        </dependency>
+
+        <!-- swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <!-- 参数验证 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+        <!-- jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+        <!-- spring-data-redis -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
+        </dependency>
+
+        <!--前端库-->
+       <!-- <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>github-com-almasaeed2010-AdminLTE</artifactId>
+            <version>${adminlte.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap-table</artifactId>
+            <version>${bootstrap-table.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+        </dependency>-->
+
+
     </dependencies>
 
 

@@ -42,4 +42,15 @@ public class SysUserServiceImpl implements SysUserService {
     public List<SysUser> finALl() throws Exception {
         return sysUserMapper.selectAll();
     }
+
+    @Override
+    public SysUser findSysUserByLogin(String username, String password) {
+        return sysUserMapper.selectByLogin(username, password);
+    }
+
+    @Override
+    public SysUser findSysByUserName(String username){
+        return sysUserMapper.selectByUserName(username);
+    }
+
 }

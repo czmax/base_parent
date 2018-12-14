@@ -224,7 +224,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--前端包-->
+        <!--前端库-->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>github-com-almasaeed2010-AdminLTE</artifactId>

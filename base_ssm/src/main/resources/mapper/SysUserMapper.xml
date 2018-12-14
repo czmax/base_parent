@@ -23,5 +23,13 @@
   </resultMap>
 
 
+  <select id="selectUserByLogin" resultMap="BaseResultMap">
+    SELECT * FROM tb_sys_user WHERE userName = #{username} AND password = #{password}
+  </select>
+
+  <select id="selectUserByUserName" resultMap="BaseResultMap">
+    SELECT * FROM tb_sys_user WHERE userName = #{username}
+    </select>
+
 
 </mapper>

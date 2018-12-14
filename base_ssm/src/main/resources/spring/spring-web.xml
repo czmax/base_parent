@@ -3,12 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
     <!-- 配置SpringMVC -->
     <!-- 1.开启SpringMVC注解模式 -->
     <!-- 简化配置：
@@ -30,36 +34,69 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 4.扫描web相关的bean SpringMvc:配置容器扫描只扫描Controller注解和ControllerAdvice注解 -->
-    <context:component-scan base-package="com.max.code.**.controller" use-default-filters="false">
+    <!-- 4.扫描web相关的bean
+    SpringMvc:配置容器扫描只扫描Controller注解和ControllerAdvice注解
+    如果使用了AOP，那么Controller不一定全在controller包下
+    use-default-filters表示是否默认加载@Component，@Repository，@Service，@Controller这些注解
+     -->
+    <context:component-scan base-package="com.max.code.**.controller,com.max.code.*.*.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--控制器增强，通常用来解决全局异常-->
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
 
     <!-- 5.json转换器-->
-    <mvc:annotation-driven>
-        <!-- 配置Fastjson支持 ,配置@ResponseBody由fastjson解析 -->
-        <mvc:message-converters register-defaults="true">
-            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/html;charset=UTF-8</value>
-                        <value>application/json</value>
-                        <value>application/xml;charset=UTF-8</value>
-                    </list>
-                </property>
-                <property name="features">
-                    <list>
-                        <!-- 默认的意思就是不配置这个属性，配置了就不是默认了 -->
-                        <!-- 是否输出值为null的字段 ，默认是false-->
-                        <value>WriteMapNullValue</value>
-                        <value>QuoteFieldNames</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+    <!--jackson版本-->
+
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list> <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html; charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html; charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!--fastjson版本-->
+    <!-- <mvc:annotation-driven>
+         &lt;!&ndash; 配置Fastjson支持 ,配置@ResponseBody由fastjson解析 &ndash;&gt;
+         <mvc:message-converters register-defaults="true">
+             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                 <property name="supportedMediaTypes">
+                     <list>
+                         <value>text/html;charset=UTF-8</value>
+                         <value>application/json</value>
+                         <value>application/xml;charset=UTF-8</value>
+                     </list>
+                 </property>
+                 <property name="features">
+                     <list>
+                         &lt;!&ndash; 默认的意思就是不配置这个属性，配置了就不是默认了 &ndash;&gt;
+                         &lt;!&ndash; 是否输出值为null的字段 ，默认是false&ndash;&gt;
+                         <value>WriteMapNullValue</value>
+                         <value>QuoteFieldNames</value>
+                     </list>
+                 </property>
+             </bean>
+         </mvc:message-converters>
+     </mvc:annotation-driven>-->
 
     <!-- 6.文件上传,配置MultipartResolver 使用spring的CommosMultipartResolver -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -71,6 +108,22 @@
 
     <!-- 7.全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
     <!-- <bean class="com.smxy.study.exception.ErrorExceptionResolver"></bean> -->
+
+    <!--8.Swagger2配置,装配Swagger配置-->
+    <bean class="com.max.code.sys.common.config.swagger.SwaggerConfig"/>
+
+
+    <!--9.Shiro相关配置-->
+    <!--shiro的这个注解配置一定要放在SpringMVC中-->
+    <aop:config proxy-target-class="true"/>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <!--shiro注解支持-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 
 
 </beans>
