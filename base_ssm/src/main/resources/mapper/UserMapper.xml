@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+    <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+    <!--<select id="getUserById" parameterType="int" resultType="User" useCache="true">
+		select * from sysUser where id = #{id}
+	</select>
+
+    <insert id="addUser" parameterType="User">
+        <selectKey order="AFTER" resultType="int" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into sysUser values(#{id},#{name},#{sex},#{age})
+    </insert>-->
+
+    <!-- 	<resultMap type="sysUser" id="userResultMap"> -->
+    <!-- 		<association property="sysUser" select="getUserById" column="id"></association> -->
+    <!-- 	</resultMap> -->
+
+</mapper>
