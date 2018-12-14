@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
@@ -43,6 +45,24 @@
         <!-- <property name="filters" value="wall,stat" /> -->
     </bean>
 
+    <!--&lt;!&ndash; 配置druid监控spring jdbc &ndash;&gt;
+    <bean id="druid-stat-interceptor"
+          class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+          scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.max.code.*.service.*</value>
+                <value>com.max.code.*.serviceimpl.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config>
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
+-->
+
     <!-- 3.配置SqlSessionFactory对象 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 注入数据库连接池 -->
@@ -56,10 +76,28 @@
     </bean>
 
     <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 注入sqlSessionFactory -->
+    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+         &lt;!&ndash; 注入sqlSessionFactory &ndash;&gt;
+         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+         &lt;!&ndash; 给出需要扫描Dao接口包 &ndash;&gt;
+         <property name="basePackage" value="com.max.code.**.dao"/>
+     </bean>-->
+
+    <!-- 5. Spring:配置扫描容器，不扫描Controller和ControllerAdvice注解 -->
+    <context:component-scan base-package="com.max.code">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!--6. 在Spring中配置通用Mapper，注释掉第4点 -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <!-- 给出需要扫描Dao接口包 -->
+        <!-- 为映射器接口文件设置基本的包路径 -->
         <property name="basePackage" value="com.max.code.**.dao"/>
     </bean>
+
+
 </beans>

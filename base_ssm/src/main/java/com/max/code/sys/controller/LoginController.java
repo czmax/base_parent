@@ -13,7 +13,7 @@ import java.util.Objects;
 public class LoginController {
     @RequestMapping("/login")
     public Result login(SysUser sysUser) {
-        if (Objects.equals(sysUser.getName(), "admin") && Objects.equals(sysUser.getPwd(), "admin")) {
+        if (Objects.equals(sysUser.getUserName(), "admin") && Objects.equals(sysUser.getPassword(), "admin")) {
             return ResultUtil.success(null);
         }
         return ResultUtil.error(500, "账号或密码有误!");

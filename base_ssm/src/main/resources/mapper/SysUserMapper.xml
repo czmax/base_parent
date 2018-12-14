@@ -1,10 +1,27 @@
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="SysUserMapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.max.code.sys.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.max.code.sys.entity.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="login" jdbcType="VARCHAR" property="login" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="street_address" jdbcType="VARCHAR" property="streetAddress" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="last_login_date" jdbcType="TIMESTAMP" property="lastLoginDate" />
+  </resultMap>
 
-    <select id="getUserById" parameterType="int" resultMap="Map">
-		select * from tb_sys_user where id = #{id}
-	</select>
+
 
 </mapper>

@@ -23,15 +23,19 @@
      -->
     <mvc:default-servlet-handler/>
 
-    <!-- 3.配置jsp 显示ViewResolver -->
+    <!-- 3.配置jsp 显示ViewResolver配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!-- 4.扫描web相关的bean -->
-    <context:component-scan base-package="com.max.code.**.controller"/>
+    <!-- 4.扫描web相关的bean SpringMvc:配置容器扫描只扫描Controller注解和ControllerAdvice注解 -->
+    <context:component-scan base-package="com.max.code.**.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
 
     <!-- 5.json转换器-->
     <mvc:annotation-driven>
@@ -56,4 +60,17 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!-- 6.文件上传,配置MultipartResolver 使用spring的CommosMultipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为5MB -->
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
+
+    <!-- 7.全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
+    <!-- <bean class="com.smxy.study.exception.ErrorExceptionResolver"></bean> -->
+
+
 </beans>
