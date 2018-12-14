@@ -8,6 +8,6 @@
 </head>
 <body>
 hello maven
-<a href="user/login.html">测试</a>
+<a href="sysUser/login.html">测试</a>
 </body>
 </html>

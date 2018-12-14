@@ -1,4 +1,4 @@
-<%@ page import="com.max.code.entity.User" %>
+<%@ page import="User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" %>
