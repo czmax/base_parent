@@ -213,6 +213,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <showWarnings>true</showWarnings>
+                    <encoding>utf-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
