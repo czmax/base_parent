@@ -1,4 +1,4 @@
-# 基于spring的4SSM基础项目
+# 基于spring4的SSM基础项目
 ## 1 搭建
 
 fastjson的问题
