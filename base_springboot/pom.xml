@@ -224,7 +224,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--前端库-->
+      <!--  &lt;!&ndash;前端库&ndash;&gt;
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>github-com-almasaeed2010-AdminLTE</artifactId>
@@ -245,7 +245,7 @@
             <groupId>org.webjars.npm</groupId>
             <artifactId>jquery</artifactId>
             <version>${jquery.version}</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>

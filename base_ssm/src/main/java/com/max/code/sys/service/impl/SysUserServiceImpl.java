@@ -1,24 +1,23 @@
 package com.max.code.sys.service.impl;
 
+import com.max.code.sys.common.service.impl.IBaseServiceImpl;
 import com.max.code.sys.dao.SysUserMapper;
 import com.max.code.sys.entity.SysUser;
 import com.max.code.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author Chen
  * @created 2018-12-14-16:42.
  */
 @Service
-public class SysUserServiceImpl implements SysUserService {
+public class SysUserServiceImpl extends IBaseServiceImpl<SysUser> implements SysUserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
 
-    @Override
+    /*@Override
     public SysUser findSysUserById(Integer id) throws Exception {
         return sysUserMapper.selectByPrimaryKey(id);
     }
@@ -41,7 +40,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUser> finALl() throws Exception {
         return sysUserMapper.selectAll();
-    }
+    }*/
 
     @Override
     public SysUser findSysUserByLogin(String username, String password) {

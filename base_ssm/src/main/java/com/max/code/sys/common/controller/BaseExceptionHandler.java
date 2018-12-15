@@ -3,7 +3,7 @@ package com.max.code.sys.common.controller;
 
 import com.max.code.sys.common.entity.Result;
 import com.max.code.sys.common.entity.StatusCode;
-import com.max.code.sys.common.exception.IException;
+import com.max.code.sys.common.exception.IBaseException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -58,9 +58,9 @@ public class BaseExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(IException.class)
+    @ExceptionHandler(IBaseException.class)
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    public Result handleIException(IException e){
+    public Result handleIException(IBaseException e){
         return new Result(false, StatusCode.ERROR, "自定义异常");
     }
 

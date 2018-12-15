@@ -1,6 +1,7 @@
 package com.max.code.app.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -58,8 +59,8 @@ public class Person {
         this.age = age;
     }
 
-    // @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//json格式返回的日期格式化注解，日期格式json转换默认是long类型的，如：144101141111111，格式化成yyyy-MM-dd HH:mm:ss格式
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")//json格式返回的日期格式化注解，日期格式json转换默认是long类型的，如：144101141111111，格式化成yyyy-MM-dd HH:mm:ss格式
+    //@JSONField(format = "yyyy-MM-dd HH:mm:ss")
     public Date getBirthday() {
         return birthday;
     }

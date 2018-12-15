@@ -23,7 +23,21 @@ aop事务，需要添加包 aspectjweaver.version，否则报错
 
  Failed to introspect bean class [org.springframework.aop.aspectj.AspectJExpressionPointcut]
  
+ 如何提取接口
  
+ https://www.jianshu.com/p/041e0f1fa3a9
+ 
+ 
+ 遇到的问题。
+ 1. 自定义mapper不能放到`mapperScannerConfigurer.setBasePackage`的包下，否则会报错`ClassCastException`
+ 2. test报错
+    在tomcat中运行没有问题，但是使用springboot 的JUnit进行单元测试时报错。这是由于在test class中添加了@value("${..}"),这需要需要添加el-api和它的实现的支持，而在tomcat中是有这两个jar包的，解决方案，在pom中添加如下依赖即可。
+
+    https://blog.csdn.net/seven_zhao/article/details/78902114
+ 
+ 3. test报错  
+    ```Error creating bean with name 'documentationPluginsBootstrapper' ```     
+    因为引入swagger的缘故，在测试类上加上 和 @WebAppConfiguration 两个注解，就可以了
  ## 3 shiro加上redis
  
  参考：

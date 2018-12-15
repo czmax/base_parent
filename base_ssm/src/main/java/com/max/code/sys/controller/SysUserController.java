@@ -20,16 +20,16 @@ public class SysUserController {
 
     @GetMapping
     public List<SysUser> findAll() throws Exception {
-        return sysUserService.finALl();
+        return sysUserService.findAll();
     }
     @GetMapping("/{id}")
     public SysUser findsysUser(@PathVariable String id) throws Exception {
-        return sysUserService.findSysUserById(5);
+        return sysUserService.findById(5);
     }
 
     @DeleteMapping("/{id}")
     public void delectSysUserById(@PathVariable String id) throws Exception {
-        sysUserService.delectSysUserById(5);
+        sysUserService.deleteById(5);
     }
 
     @PostMapping
@@ -38,14 +38,14 @@ public class SysUserController {
         sysUser.setId(5);
         sysUser.setUserName("admin");
         sysUser.setPassword("admin");
-        sysUserService.insertSysUser(sysUser);
+        sysUserService.save(sysUser);
     }
 
     @PutMapping("/{id}")
     public void updateSysUser(@PathVariable String id) throws Exception {
-        SysUser sysUser = sysUserService.findSysUserById(5);
+        SysUser sysUser = sysUserService.findById(5);
         sysUser.setAddress("上海");
-        sysUserService.updateSysUser(sysUser);
+        sysUserService.update(sysUser);
     }
 
 

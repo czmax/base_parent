@@ -75,7 +75,9 @@
         <!--当有多个包时，可以用分号隔开value="cn.seckill.entity;cn.seckill.bean"-->
         <property name="typeAliasesPackage" value="com.max.code.**.entity;com.max.code.sys.common.entity"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        <!--参照写法：<property name="mapperLocations" value="classpath*:com/helping/wechat/model/**/mysql/*Mapper.xml" />-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!---->
     </bean>
 
     <!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->
@@ -99,7 +101,18 @@
         <!--注入sqlSessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 为映射器接口文件设置基本的包路径 -->
-        <property name="basePackage" value="com.max.code.**.dao"/>
+        <property name="basePackage" value="com.max.code.sys.dao"/>
+        <!--
+        GenericMapper类是自定义的mapper类.
+        notEmpty=true：insert和update中，会判断字符串类型 != ‘’。
+        -->
+        <property name="properties">
+            <value>
+                mappers=com.max.code.sys.common.dao.IBaseMapper
+                notEmpty=true
+            </value>
+        </property>
+
     </bean>
 
 

@@ -6,11 +6,11 @@ package com.max.code.sys.common.exception;
  * @author Chen
  * @created 2018-12-14-19:26.
  */
-public class IException extends RuntimeException {
+public class IBaseException extends RuntimeException {
     private static final long serialVersionUID = 7144771828212718116L;
     private String message;
 
-    public IException(String message) {
+    public IBaseException(String message) {
         this.message = message;
     }
 
