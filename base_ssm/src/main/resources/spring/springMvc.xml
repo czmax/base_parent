@@ -28,11 +28,11 @@
     <mvc:default-servlet-handler/>
 
     <!-- 3.配置jsp 显示ViewResolver配置视图解析器 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+    <!--<property name="prefix" value="/WEB-INF/jsp/"/>-->
+    <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
 
     <!-- 4.扫描web相关的bean
     SpringMvc:配置容器扫描只扫描Controller注解和ControllerAdvice注解
@@ -48,8 +48,6 @@
 
     <!-- 5.json转换器-->
     <!--jackson版本-->
-
-
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
@@ -125,5 +123,28 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
 
+    <!-- 10. thymeleaf配置-->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/"/>
+        <property name="suffix" value=".html"/>
+        <property name="templateMode" value="HTML5"/>
+        <property name="cacheable" value="false"/>
+        <!--
+        prefix，用于指定template所在目录；
+        suffix，过滤请求，这里是处理所有以.html结尾的请求；
+        templateMode，设置为html；
+        cacheable，是否缓存页面，开发时设置为false，这样就可以在不重启服务器的情况下刷新页面即可查看修改效果；
+        -->
+        <!--解决中文乱码-->
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
 
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <!--解决中文乱码-->
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
 </beans>

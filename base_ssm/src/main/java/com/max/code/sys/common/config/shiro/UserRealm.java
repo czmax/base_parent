@@ -5,14 +5,14 @@ import com.max.code.sys.entity.SysUser;
 import com.max.code.sys.service.SysMenuService;
 import com.max.code.sys.service.SysUserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
  * @created 2018-12-14-20:45.
  */
 public class UserRealm extends AuthorizingRealm {
-
+    private static Logger logger = LoggerFactory.getLogger(UserRealm.class);
     @Autowired
     private SysUserService sysUserService;
     @Autowired
@@ -45,11 +45,19 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         //token是用户输入的
         String username = (String) token.getPrincipal();
+        String password = (String) token.getCredentials();
         SysUser sysUser = sysUserService.findSysByUserName(username);
+
+
         if (sysUser == null) {
-            return null;
+            throw new UnknownAccountException("账号不存在!");
         }
-        System.out.println(sysUser.toString());
+        //password = new Md5Hash(password).toString();
+        // 密码错误
+        if (password != null && !password.equals(sysUser.getPassword())) {
+            throw new IncorrectCredentialsException("账号或密码不正确!");
+        }
+
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(sysUser, sysUser.getPassword(), this.getName());
         return simpleAuthenticationInfo;
     }

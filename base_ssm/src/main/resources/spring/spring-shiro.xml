@@ -12,13 +12,14 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!--登陆页面-->
-        <property name="loginUrl" value="/login"/>
-        <!--&lt;!&ndash;认证成功统一跳转到first.actio，建议不配置，不配置的话shiro认证成功会自动到上一个请求路径&ndash;&gt;-->
+        <property name="loginUrl" value="/sys/login"/>
+        <!--&lt;!&ndash;认证成功统一跳转到first.action，建议不配置，不配置的话shiro认证成功会自动到上一个请求路径&ndash;&gt;-->
         <!--<property name="successUrl" value="/first.action"/>-->
         <!--<property name="unauthorizedUrl" value="/refuse.jsp" />-->
         <!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
         <property name="filterChainDefinitions">
             <value>
+                <!--/sys/login=anon-->
                 <!--对静态资源设置匿名访问-->
                 /images/**=anon
                 /js/**=anon

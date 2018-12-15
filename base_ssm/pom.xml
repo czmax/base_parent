@@ -54,10 +54,15 @@
         <spring-data-redis.version>1.7.2.RELEASE</spring-data-redis.version>
 
         <!--前端库-->
-        <adminlte.version>2.4.8</adminlte.version>
+        <adminlte.version>2.4.3</adminlte.version>
         <bootstrap.version>3.3.7</bootstrap.version>
         <bootstrap-table.version>1.12.1</bootstrap-table.version>
         <jquery.version>3.3.1</jquery.version>
+        <fontawesome.version>4.7.0</fontawesome.version>
+        <ionicons.version>2.0.1</ionicons.version>
+        <thymeleaf-spring4.version>3.0.9.RELEASE</thymeleaf-spring4.version>
+
+
 
     </properties>
     <!--<repositories>-->
@@ -314,9 +319,9 @@
         </dependency>
 
         <!--前端库-->
-        <!-- <dependency>
-             <groupId>org.webjars.npm</groupId>
-             <artifactId>github-com-almasaeed2010-AdminLTE</artifactId>
+         <dependency>
+             <groupId>org.webjars</groupId>
+             <artifactId>AdminLTE</artifactId>
              <version>${adminlte.version}</version>
          </dependency>
          <dependency>
@@ -334,9 +339,28 @@
              <groupId>org.webjars.npm</groupId>
              <artifactId>jquery</artifactId>
              <version>${jquery.version}</version>
-         </dependency>-->
+         </dependency>
+         <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>fontawesome</artifactId>
+            <version>${fontawesome.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>ionicons</artifactId>
+            <version>${ionicons.version}</version>
+        </dependency>
 
-
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+            <version>${thymeleaf-spring4.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${thymeleaf-spring4.version}</version>
+        </dependency>
     </dependencies>
 
 
